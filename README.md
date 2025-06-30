@@ -29,7 +29,8 @@ Clone the repository and install dependencies:
 
 ```bash
 git clone https://github.com/your-username/localai.git
-cd localai
+ren "LocalAI" "local-ai"
+cd local-ai
 npm install
 npm run dev
 ```
