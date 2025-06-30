@@ -4,9 +4,11 @@ import { useEffect, useRef, useState } from 'react';
 import { GoogleGenAI } from "@google/genai";
 import { FaPaperPlane, FaTrash } from "react-icons/fa";
 import Swal from 'sweetalert2';
+import { MessageType } from './types/message';
+import Messages from './components/Messages';
 
 export default function Home() {
-  const [messages, setMessages] = useState<{ role: 'user' | 'ai', text: string }[]>([]);
+  const [messages, setMessages] = useState<MessageType[]>([]);
   const [input, setInput] = useState('');
   const [loading, setloading] = useState(false);
   const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
@@ -116,14 +118,7 @@ export default function Home() {
         <h1 className='my-2 p-3 text-2xl font-semibold'>LOCAL<span className='bg-white px-2 py-1 rounded-sm text-neutral-900'>AI</span></h1>
       </div>
       <div className="flex-1 p-4 overflow-y-auto">
-        {messages.map((msg, idx) => (
-          <div
-            key={idx}
-            className={`my-2 py-3 rounded-md rounded-t-none rounded-l-md max-w-full ${msg.role === 'user' ? 'bg-neutral-800 self-end ml-auto w-fit px-3' : 'text-white self-start mr-auto'}`}
-          >
-            {msg.text}
-          </div>
-        ))}
+        <Messages content={messages} />
         <div className={`my-2 ${loading ? 'block' : 'hidden'}`}>
           <div className="flex space-x-2 items-center h-16">
             <div className="w-2 h-2 bg-gray-50 rounded-full animate-bounce" />
